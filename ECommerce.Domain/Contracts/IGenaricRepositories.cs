@@ -13,6 +13,12 @@ namespace ECommerce.Domain.Contracts
 
 
         Task<TEntity?> GetByIdAsync(TKey id, CancellationToken ct = default);
+
+        Task<TEntity?> GetByIdWithSpecificationsAsync(ISpecefications<TEntity, TKey> specifications, CancellationToken ct = default);
+
         Task<IReadOnlyList<TEntity>> GetAllAsync(CancellationToken ct = default);
+
+        // Gets all entities with the specified specifications
+        Task<IReadOnlyList<TEntity>> GetAllWithSpecificationsAsync(ISpecefications<TEntity, TKey> specifications, CancellationToken ct = default);
     }
 }

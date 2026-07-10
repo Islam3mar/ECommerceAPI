@@ -32,8 +32,19 @@ namespace ECommerce.Infrastructure.Repositories
 
         public async Task<TEntity?> GetByIdAsync(TKey id, CancellationToken ct = default) 
             => await _set.FindAsync(id, ct);
-        
 
-      
+        public async Task<TEntity?> GetByIdWithSpecificationsAsync(ISpecefications<TEntity, TKey> specifications, CancellationToken ct = default)
+        {
+            var Result = SpecificationEvaluator.CreateQuery<TEntity, TKey>(_set, specifications);
+
+            return await Result.FirstOrDefaultAsync(ct);
+        }
+
+        public async Task<IReadOnlyList<TEntity>> GetAllWithSpecificationsAsync(ISpecefications<TEntity, TKey> specifications, CancellationToken ct = default)
+        {
+            var Result = SpecificationEvaluator.CreateQuery<TEntity, TKey>(_set, specifications);
+
+            return await Result.ToListAsync(ct);
+        }
     }
 }
