@@ -20,5 +20,8 @@ namespace ECommerce.Domain.Contracts
 
         // Gets all entities with the specified specifications
         Task<IReadOnlyList<TEntity>> GetAllWithSpecificationsAsync(ISpecefications<TEntity, TKey> specifications, CancellationToken ct = default);
+
+        Task<int> GetProductCountWithSpecificationsAsync(ISpecefications<TEntity, TKey> specifications, CancellationToken ct = default);
+
     }
 }

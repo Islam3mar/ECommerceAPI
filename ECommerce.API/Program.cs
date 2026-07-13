@@ -1,4 +1,3 @@
-
 using ECommerce.API.Extentions;
 using ECommerce.Application;
 using ECommerce.Application.Profiles;
@@ -26,6 +25,10 @@ namespace ECommerce.API
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
 
+            // Swagger
+            //builder.Services.AddEndpointsApiExplorer();
+            //builder.Services.AddSwaggerGen();
+
             builder.Services.Configure<UrlSettings>(builder.Configuration.GetSection("UrlSettings"));
 
             var app = builder.Build();
@@ -36,6 +39,10 @@ namespace ECommerce.API
             if (app.Environment.IsDevelopment())
             {
                 app.MapOpenApi();
+
+                // Swagger
+                //app.UseSwagger();
+                //app.UseSwaggerUI();
             }
 
             app.UseStaticFiles(new StaticFileOptions

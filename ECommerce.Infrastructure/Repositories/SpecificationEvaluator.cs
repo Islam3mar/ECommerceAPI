@@ -26,7 +26,6 @@ namespace ECommerce.Infrastructure.Repositories
             if (specifications.Criteria is not null)
                 query = query.Where(specifications.Criteria);
             #endregion
-
             #region Order By
             if (specifications.OrderBy is not null)
                 query = query.OrderBy(specifications.OrderBy);
@@ -34,7 +33,13 @@ namespace ECommerce.Infrastructure.Repositories
             //------------------------------------------------------------------
 
             if (specifications.OrderByDesc is not null)
-                query = query.OrderByDescending(specifications.OrderByDesc); 
+                query = query.OrderByDescending(specifications.OrderByDesc);
+            #endregion
+            #region Pagination
+            if (specifications.IsPaginated)
+            {
+                query = query.Skip(specifications.Skip).Take(specifications.Take);
+            }
             #endregion
 
             return query;

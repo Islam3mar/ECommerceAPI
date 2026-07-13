@@ -16,7 +16,6 @@ namespace ECommerce.Application.Specifications
             IncludeExpressions.Add(expression);
         } 
         #endregion
-
         #region Where
         public Expression<Func<TEntity, bool>>? Criteria { get; private set; }
 
@@ -25,7 +24,6 @@ namespace ECommerce.Application.Specifications
             Criteria = criteria;
         }
         #endregion
-
         #region Order By
         public Expression<Func<TEntity, object>>? OrderBy {  get; private set; }
         // set
@@ -33,9 +31,25 @@ namespace ECommerce.Application.Specifications
            => OrderBy = orderByExpression;
         
         public Expression<Func<TEntity, object>>? OrderByDesc {  get; private set; }
+
+      
+
         // set
         public void AddOrderByDesc(Expression<Func<TEntity, object>>? orderByDescExpression)
            => OrderByDesc = orderByDescExpression;
+        #endregion
+        #region Pagination
+        public int Take { get; private set; }
+        public int Skip { get; private set; }
+        public bool IsPaginated { get; private set; }
+
+
+        public void ApplyPagination(int pageSize , int pageIndex)
+        {
+            IsPaginated = true;
+            Take = pageSize;
+            Skip = (pageIndex - 1) * pageSize;
+        }
         #endregion
     }
 }

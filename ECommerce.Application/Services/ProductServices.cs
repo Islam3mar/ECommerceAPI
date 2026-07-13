@@ -22,6 +22,25 @@ namespace ECommerce.Application.Services
             this.unitOfWork = unitOfWork;
             this.mapper = mapper;
         }
+        public async Task<Result<PaginatedResult<ProductDto>>> GetAllProductsAsync(ProductQueryParams queryParams, CancellationToken ct = default)
+        {
+            var specification = new ProductSpecifications(queryParams);
+
+            var products = await unitOfWork.GetRepository<Product, int>()
+                                .GetAllWithSpecificationsAsync(specification, ct);
+
+            var mappedProducts = mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductDto>>(products);
+
+            //-----------------------------------------------------------------------------------------
+
+            var countSpecification = new ProductCountSpecefication(queryParams);
+
+            var totalCount = await unitOfWork.GetRepository<Product, int>()
+                                .GetProductCountWithSpecificationsAsync(countSpecification, ct);
+
+            return Result<PaginatedResult<ProductDto>>.Ok(new PaginatedResult<ProductDto>
+                (mappedProducts, queryParams.PageIndex, products.Count, totalCount));
+        }
 
         public async Task<Result<IReadOnlyList<BrandDto>>> GetAllProductBrandsAsync(CancellationToken ct = default)
         {
@@ -31,19 +50,6 @@ namespace ECommerce.Application.Services
 
             return Result<IReadOnlyList<BrandDto>>.Ok(mappedBrands);
         }
-
-        public async Task<Result<IReadOnlyList<ProductDto>>> GetAllProductsAsync(ProductQueryParams queryParams, CancellationToken ct = default)
-        {
-            var specification = new ProductSpecifications(queryParams);
-
-            var products = await unitOfWork.GetRepository<Product, int>()
-                                .GetAllWithSpecificationsAsync(specification, ct);
-
-            var mappedProducts = mapper.Map<IReadOnlyList<Product>, IReadOnlyList<ProductDto>>(products);
-
-            return Result<IReadOnlyList<ProductDto>>.Ok(mappedProducts);
-        }
-
         public async Task<Result<IReadOnlyList<TypeDto>>> GetAllProductTypesAsync(CancellationToken ct = default)
         {
             var types = await unitOfWork.GetRepository<ProductsType, int>().GetAllAsync(ct);
