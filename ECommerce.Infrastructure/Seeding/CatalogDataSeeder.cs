@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
 using ECommerce.Domain.Contracts;
+using ECommerce.Domain.Entities.Orders;
 using ECommerce.Domain.Entities.Products;
 using ECommerce.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -27,8 +28,10 @@ namespace ECommerce.Infrastructure.Seeding
                 await SeedIfEmptyAsync<ProductsBrand>(seedPath, "brands.json", ct);
                 await SeedIfEmptyAsync<ProductsType>(seedPath, "types.json", ct);
                 await SeedIfEmptyAsync<Product>(seedPath, "products.json", ct);
+                await SeedIfEmptyAsync<DeliveryMethod>(seedPath, "delivery.json", ct);
 
-                
+
+
             }
             catch (Exception ex)
             {
