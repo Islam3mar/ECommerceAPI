@@ -99,6 +99,7 @@ namespace ECommerce.Application.Services
                 DeliveryMethodId = deliveryMethod.Id,
                 DeliveryMethod = deliveryMethod,
                 SubTotal = subTotal,
+                PaymentIntentId = basket.PaymentIntentId
 
             };
 

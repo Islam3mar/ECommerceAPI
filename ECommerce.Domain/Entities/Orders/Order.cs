@@ -20,6 +20,7 @@ namespace ECommerce.Domain.Entities.Orders
 
         public OrderStatus status { get; set; } = OrderStatus.Pending;
 
+        public string? PaymentIntentId { get; set; }
 
         public decimal SubTotal { get; set; }
 

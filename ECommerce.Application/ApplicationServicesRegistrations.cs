@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ECommerce.Application.Common;
 using ECommerce.Application.Contracts;
 using ECommerce.Application.Profiles;
 using ECommerce.Application.Services;
@@ -22,6 +23,8 @@ namespace ECommerce.Application
             services.AddScoped<ITokenServices, TokenServices>();
 
             services.AddScoped<IOrderServices,OrderServices>();
+
+            services.AddScoped<IPaymentService,PaymentService>();
 
             return services;
         }
