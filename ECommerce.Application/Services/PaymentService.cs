@@ -84,7 +84,7 @@ namespace ECommerce.Application.Services
 
             var subTotal = basket.Items.Sum(i => i.Quantity * i.Price);
 
-            var amount = (long)Math.Round(subTotal + deliveryMethod.Cost * 100m);
+            var amount = (long)Math.Round((subTotal + deliveryMethod.Cost) * 100m);
 
             //------------------------------------------------------------------------------------------------------------------
 
