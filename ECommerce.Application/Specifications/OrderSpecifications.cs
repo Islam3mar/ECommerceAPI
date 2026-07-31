@@ -10,16 +10,20 @@ namespace ECommerce.Application.Specifications
         public OrderSpecifications(string email)
             :base(o => o.BuyerEmail == email) 
         {
-            AddInclude(o => o.DeliveryMethod);
-            AddInclude(o => o.Items);
+            AddCommonIncludes();
             AddOrderByDesc(o => o.OrderDate);
         }
 
         public OrderSpecifications(Guid id , string email)
             :base(o => o.Id ==  id && o.BuyerEmail == email) 
         {
-
+            AddCommonIncludes();
         }
 
+        private void AddCommonIncludes()
+        {
+            AddInclude(o => o.DeliveryMethod);
+            AddInclude(o => o.Items);
+        }
     }
 }

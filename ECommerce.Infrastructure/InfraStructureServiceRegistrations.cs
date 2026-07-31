@@ -8,6 +8,7 @@ using ECommerce.Infrastructure.Data;
 using ECommerce.Infrastructure.Payments;
 using ECommerce.Infrastructure.Repositories;
 using ECommerce.Infrastructure.Seeding;
+using ECommerce.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -75,6 +76,9 @@ namespace ECommerce.Infrastructure
             });
 
             services.AddScoped<IPaymentGateway,StripePaymentGateway>();
+
+
+            services.AddScoped<IImageService, ImageService>();
 
             return services;
         }

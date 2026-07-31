@@ -31,6 +31,8 @@ namespace ECommerce.API
 
             builder.Services.AddSwaggerGen(c =>
             {
+              
+
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Name = "Authorization",

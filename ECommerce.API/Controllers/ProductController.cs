@@ -45,5 +45,34 @@ namespace ECommerce.API.Controllers
         }
 
 
+        //--------------------------------------------------------------------------------------------------------
+
+
+        // Admin only — [FromForm] because the request must be multipart/form-data to carry the image file.
+        [HttpPost("Admin")]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<ProductDto>> CreateProduct([FromForm] CreateProductDto createDto, CancellationToken ct)
+        {
+            var result = await productServices.CreateAsync(createDto, ct);
+            return ToActionResult(result);
+        }
+
+        [HttpPut("{id}/Admin")]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<ProductDto>> UpdateProduct(int id, [FromForm] UpdateProductDto updateDto, CancellationToken ct)
+        {
+            var result = await productServices.UpdateAsync(id, updateDto, ct);
+            return ToActionResult(result);
+        }
+
+        [HttpDelete("{id}/Admin")]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult<bool>> DeleteProduct(int id, CancellationToken ct)
+        {
+            var result = await productServices.DeleteAsync(id, ct);
+            return ToActionResult(result);
+        }
+
+
     }
 }

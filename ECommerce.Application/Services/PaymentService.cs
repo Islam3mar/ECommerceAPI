@@ -88,7 +88,7 @@ namespace ECommerce.Application.Services
 
             //------------------------------------------------------------------------------------------------------------------
 
-            if (!string.IsNullOrEmpty(basket.PaymentIntentId))
+            if (!string.IsNullOrEmpty(basket.PaymentIntentId) && !(basket.PaymentIntentId == "string"))
             {
                 var result = await paymentGateway.UpdatePaymentIntentAsync(basket.PaymentIntentId, amount , ct);
 
