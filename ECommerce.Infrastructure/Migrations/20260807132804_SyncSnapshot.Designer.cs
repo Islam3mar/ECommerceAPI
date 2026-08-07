@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ECommerce.Infrastructure.Migrations
 {
     [DbContext(typeof(StoreDbContext))]
-    [Migration("20260719133729_PaymentColumnAtOrder")]
-    partial class PaymentColumnAtOrder
+    [Migration("20260807132804_SyncSnapshot")]
+    partial class SyncSnapshot
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

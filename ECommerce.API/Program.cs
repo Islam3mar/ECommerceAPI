@@ -17,7 +17,7 @@ namespace ECommerce.API
             // Add services to the container.
 
             builder.Services.AddControllers();
-            
+
             builder.Services.AddInfrastructureServices(builder.Configuration);
             builder.Services.AddApplicationServices();
 
@@ -31,7 +31,7 @@ namespace ECommerce.API
 
             builder.Services.AddSwaggerGen(c =>
             {
-              
+
 
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
@@ -62,18 +62,23 @@ namespace ECommerce.API
             await app.MigrationAndSeedAsync();
 
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
-                app.MapOpenApi();
 
-                // Swagger
-                app.UseSwagger();
-                app.UseSwaggerUI();
+            // Swagger - شغال في كل البيئات (Development و Production)
+            app.MapOpenApi();
+            app.UseSwagger();
+            app.UseSwaggerUI();
+
+            // تأكد إن فولدر Files موجود قبل ما نستخدمه، عشان منقعش بـ DirectoryNotFoundException
+            // لو مش موجود (زي أول publish على السيرفر)، بيتعمل أوتوماتيك
+            var filesPath = Path.Combine(builder.Environment.ContentRootPath, "Files");
+            if (!Directory.Exists(filesPath))
+            {
+                Directory.CreateDirectory(filesPath);
             }
 
             app.UseStaticFiles(new StaticFileOptions
             {
-                FileProvider = new PhysicalFileProvider(Path.Combine(builder.Environment.ContentRootPath, "Files")),
+                FileProvider = new PhysicalFileProvider(filesPath),
                 RequestPath = "/Files"
             });
 
